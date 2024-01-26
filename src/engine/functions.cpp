@@ -10,3 +10,15 @@ void place_text(sf::RenderWindow& window, const std::string& message, const sf::
 
     window.draw(text);
 }
+
+
+float Move_Logic(){
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+        return -0.2f;
+    }
+    else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+        return 0.2f;
+    }
+
+    return 0.0f;
+}
