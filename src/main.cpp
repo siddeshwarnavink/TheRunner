@@ -40,7 +40,7 @@ int main() {
         window.clear();
         window.draw(charactersprite);
         place_text(window,"Hi!!!",font,24,sf::Vector2f(100.0f, 100.0f),sf::Color::Red);
-        place_text(window,"Hello",font,24,sf::Vector2f(500.0f, 100.0f),sf::Color::Red);
+        place_text(window,"Hello there",font,24,sf::Vector2f(500.0f, 100.0f),sf::Color::Red);
         window.draw(Block);
         window.draw(Floor);
         window.display();
