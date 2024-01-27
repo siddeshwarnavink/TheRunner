@@ -8,7 +8,7 @@ compile:
 
 link:
 	
-	g++ main.o functions.o -o main -L"..\\lib" -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -mwindows -lopengl32 -lfreetype -lwinmm -lgdi32
+	g++ main.o functions.o -o main -L"..\\lib" -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lopengl32 -lfreetype -lwinmm -lgdi32
 
 run:
 	.\main

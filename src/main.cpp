@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <engine/functions.h>
 #include <cmath>
+#include <iostream>
 
 int main() {
 
@@ -9,7 +10,9 @@ int main() {
     sf::Texture texture ;
     sf::Font font;
     sf::RectangleShape Block(sf::Vector2f(50.0f,50.0f));
-    sf::RectangleShape Floor(sf::Vector2f(10000000.0f,10.0f));
+    sf::RectangleShape Floor(sf::Vector2f(1000.0f,10.0f));
+
+    sf::RectangleShape obstacles[2];
     
     //Loading Error handles
     if (!font.loadFromFile("../assets/font/Roboto-Black.ttf")) {
@@ -21,16 +24,22 @@ int main() {
         return -1;
     }
 
+
+
     //Entities placement
     sf::Sprite charactersprite(texture);
-    charactersprite.setPosition(40.0f,250.0f);
+    charactersprite.setPosition(40.0f,200.0f);
     Block.setPosition(300.0f,330.0f);
     Block.setFillColor(sf::Color::Red);
-    Floor.setPosition(-1000.0f,380.0f);
+    Floor.setPosition(-500.0f,380.0f);
 
+    
+
+    std::cout<< charactersprite.getPosition().x+charactersprite.getGlobalBounds().width;
     //Initial Testing Assumptions
-    float MovementVelocity = 0.1f;
-
+    float MovementVelocity = 0.0f;
+    float JumpVelocity = 0.0f;
+    bool IsJumping = true;
 
     // Game loop
     while (window.isOpen()) {
@@ -43,14 +52,26 @@ int main() {
             }
         }
 
+        
+        
+       // JumpVelocity = Collision_Logic(obstacles,charactersprite,2);
+        Collision_Logic(obstacles,charactersprite,2,IsJumping);
+       // JumpVelocity=Jump_Logic();
+       Jump_Logic(charactersprite,IsJumping);
         MovementVelocity = Move_Logic();
         
+        
+        charactersprite.move(0.0f,JumpVelocity);
         Floor.move(-MovementVelocity,0.0f);
         Block.move(-MovementVelocity,0.0f);
+        obstacles[0] =Floor;
+        obstacles[1] = Block;
         window.clear();
         window.draw(charactersprite);
-        place_text(window,"Hi!!!",font,24,sf::Vector2f(100.0f, 100.0f),sf::Color::Red);
-        place_text(window,"Hello there",font,24,sf::Vector2f(500.0f, 100.0f),sf::Color::Red);
+
+        place_text(window,std::to_string(IsJumping),font,24,sf::Vector2f(100.0f, 100.0f),sf::Color::Green);
+        place_text(window,std::to_string(obstacles[0].getPosition().y-(charactersprite.getPosition().y+charactersprite.getGlobalBounds().height)),font,24,sf::Vector2f(500.0f, 100.0f),sf::Color::Red);
+
         window.draw(Block);
         window.draw(Floor);
         window.display();
