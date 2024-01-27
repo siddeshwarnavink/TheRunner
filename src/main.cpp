@@ -39,7 +39,7 @@ int main() {
     //Initial Testing Assumptions
     float MovementVelocity = 0.0f;
     float JumpVelocity = 0.0f;
-    bool IsJumping = true;
+    bool IsFalling = true;
 
     // Game loop
     while (window.isOpen()) {
@@ -55,9 +55,9 @@ int main() {
         
         
        // JumpVelocity = Collision_Logic(obstacles,charactersprite,2);
-        Collision_Logic(obstacles,charactersprite,2,IsJumping);
+        Collision_Logic(obstacles,charactersprite,2,IsFalling);
        // JumpVelocity=Jump_Logic();
-       Jump_Logic(charactersprite,IsJumping);
+       Jump_Logic(charactersprite,IsFalling);
         MovementVelocity = Move_Logic();
         
         
@@ -69,7 +69,7 @@ int main() {
         window.clear();
         window.draw(charactersprite);
 
-        place_text(window,std::to_string(IsJumping),font,24,sf::Vector2f(100.0f, 100.0f),sf::Color::Green);
+        place_text(window,std::to_string(IsFalling),font,24,sf::Vector2f(100.0f, 100.0f),sf::Color::Green);
         place_text(window,std::to_string(obstacles[0].getPosition().y-(charactersprite.getPosition().y+charactersprite.getGlobalBounds().height)),font,24,sf::Vector2f(500.0f, 100.0f),sf::Color::Red);
 
         window.draw(Block);

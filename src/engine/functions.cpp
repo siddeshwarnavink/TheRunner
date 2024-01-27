@@ -26,8 +26,7 @@ float Move_Logic(){
 
 
 void Jump_Logic(sf::Sprite& character,bool& IsJumping){
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && IsJumping==false){
-        IsJumping= true ;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && IsJumping==true){
         for(int i =0; i<1000;i++){
             character.move(0.0f,-0.1f);
         }
