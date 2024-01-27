@@ -15,12 +15,12 @@ int main() {
     sf::RectangleShape obstacles[2];
     
     //Loading Error handles
-    if (!font.loadFromFile("../assets/font/Roboto-Black.ttf")) {
+    if (!font.loadFromFile("./assets/font/Roboto-Black.ttf")) {
         
         return -1;
     }
     
-    if(!texture.loadFromFile("../assets/Character/mc.png")){
+    if(!texture.loadFromFile("./assets/Character/mc.png")){
         return -1;
     }
 
