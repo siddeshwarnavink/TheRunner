@@ -9,9 +9,9 @@ void Game::run() {
         return;
     }
 
-    Entity::Actor::MainCharacter mc;
-    Entity::Obstacle::Block block(mc);
-    Entity::Obstacle::Floor floor(mc);
+    Entity::Actor::MainCharacter player;
+    Entity::Obstacle::Block block(player);
+    Entity::Obstacle::Floor floor(player);
 
     float movementVelocity;
     bool isColliding = false;
@@ -51,21 +51,21 @@ void Game::run() {
 
         block.loop();
         floor.loop();
-        mc.loop();
+        player.loop();
 
         isColliding = !isColliding && block.isColliding();
         isColliding = !isColliding && floor.isColliding();
 
         // Gravity
         if(isColliding) {
-            mc.setJumping(false);
-            mc.move(0.0f, 0.0f);
-        } else {
-            mc.setJumping(true);
-            mc.move(0.0f, 0.2f);
+            player.setState(Entity::Actor::PlayerState::RUNNING);
+            player.move(0.0f, 0.0f);
+        } else if(player.getState() != Entity::Actor::PlayerState::JUMPING) {
+            player.setState(Entity::Actor::PlayerState::FALLING);
+            player.move(0.0f, 0.2f);
         }
 
-        mc.display(window);
+        player.display(window);
         block.display(window);
         floor.display(window);
         window.display();

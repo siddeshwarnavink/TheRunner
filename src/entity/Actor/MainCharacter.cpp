@@ -3,7 +3,7 @@
 namespace Entity::Actor {
     sf::Sprite charactersprite;
 
-    MainCharacter::MainCharacter() : isFalling(true) {
+    MainCharacter::MainCharacter() : state(PlayerState::FALLING), jumpHeight(140.0f) {
         if (!texture.loadFromFile("./assets/Character/mc.png")) {
             return;
         }
@@ -17,9 +17,14 @@ namespace Entity::Actor {
 
     void MainCharacter::loop() {
         // Jump logic
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && isFalling == true) {
-            for (int i = 0; i < 1000; i++) {
-                charactersprite.move(0.0f, -0.1f);
+        if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && state == PlayerState::RUNNING)
+            || state == PlayerState::JUMPING) {
+            
+            if(charactersprite.getPosition().y >= jumpHeight) {
+                state = PlayerState::JUMPING;
+                charactersprite.move(0.0f, -0.15f);
+            } else {
+                state = PlayerState::FALLING;
             }
         }
         else {
@@ -39,11 +44,11 @@ namespace Entity::Actor {
         return charactersprite.getPosition();
     }
 
-    void MainCharacter::setJumping(bool isFalling) {
-        this->isFalling = isFalling;
+    void MainCharacter::setState(PlayerState state) {
+        this->state = state;
     }
 
-    bool MainCharacter::getJumping() {
-        return this->isFalling;
+    PlayerState MainCharacter::getState() {
+        return this->state;
     }
 }
