@@ -9,5 +9,6 @@ namespace Entity::Obstacle {
     class Block: public BaseObstacle {
         public:
             Block(Actor::MainCharacter& mainCharacter);
+            void loop();
     };
 }

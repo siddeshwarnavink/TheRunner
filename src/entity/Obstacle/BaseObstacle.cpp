@@ -1,5 +1,6 @@
 #include "entity/Obstacle/BaseObstacle.h"
 #include "entity/Actor/MainCharacter.h"
+#include "Game.h"
 
 namespace Entity::Obstacle {
     sf::RectangleShape obstacle;
@@ -18,7 +19,7 @@ namespace Entity::Obstacle {
     }
 
     void BaseObstacle::loop() {
-        // ...
+        Game::isColliding = !Game::isColliding && isColliding();
     }
 
 

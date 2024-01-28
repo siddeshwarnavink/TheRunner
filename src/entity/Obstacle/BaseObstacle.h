@@ -10,11 +10,11 @@ namespace Entity::Obstacle {
             static std::vector<sf::RectangleShape> obstacleList;
             sf::RectangleShape obstacle;
             Actor::MainCharacter& mainCharacter;
+            bool isColliding();
 
         public:
             BaseObstacle(Actor::MainCharacter& mainCharacter);
             void loop();
-            bool isColliding();
             void move(float x, float y);
             void display(sf::RenderWindow& window);
         };

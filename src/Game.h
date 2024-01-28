@@ -4,5 +4,6 @@ class Game {
     sf::Font font;
 
     public: 
+        static bool isColliding;
         void run();
 };

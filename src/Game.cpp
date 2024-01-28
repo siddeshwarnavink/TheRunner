@@ -3,8 +3,10 @@
 #include "entity/Obstacle/Block.h"
 #include "entity/Obstacle/Floor.h"
 
+bool Game::isColliding = false;
+
 void Game::run() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Idk Something");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Jumping Game");
     if (!font.loadFromFile("./assets/font/Roboto-Black.ttf")) {   
         return;
     }
@@ -14,7 +16,6 @@ void Game::run() {
     Entity::Obstacle::Floor floor(player);
 
     float movementVelocity;
-    bool isColliding = false;
 
     sf::Clock clock;
     float targetFPS = 2000.0f;
@@ -37,35 +38,32 @@ void Game::run() {
             }
         }
 
-        // Movement logic
         movementVelocity = 0.0f;
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-            movementVelocity = -0.2f;
-        }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-            movementVelocity =  0.2f;
-        }
-
-        block.move(-movementVelocity, 0.0f);
-        floor.move(-movementVelocity, 0.0f);
+        this->isColliding = false;
 
         block.loop();
         floor.loop();
         player.loop();
 
-        isColliding = !isColliding && block.isColliding();
-        isColliding = !isColliding && floor.isColliding();
-
-        // Gravity
-        if(isColliding) {
-            player.setState(Entity::Actor::PlayerState::RUNNING);
-            player.move(0.0f, 0.0f);
-        } else if(player.getState() != Entity::Actor::PlayerState::JUMPING) {
-            player.setState(Entity::Actor::PlayerState::FALLING);
-            player.move(0.0f, 0.2f);
+        // Movement logic
+        if(player.getState() != Entity::Actor::PlayerState::DEAD) {
+            movementVelocity =  0.2f;
+            block.move(-movementVelocity, 0.0f);
+            floor.move(-movementVelocity, 0.0f);
+        
+            // Gravity
+            if(isColliding) {
+                player.setState(Entity::Actor::PlayerState::RUNNING);
+                player.move(0.0f, 0.0f);
+            } else if(player.getState() != Entity::Actor::PlayerState::JUMPING) {
+                player.setState(Entity::Actor::PlayerState::FALLING);
+                player.move(0.0f, 0.2f);
+            }
         }
 
-        player.display(window);
+        if(player.getState() != Entity::Actor::PlayerState::DEAD) {
+            player.display(window);
+        }
         block.display(window);
         floor.display(window);
         window.display();
