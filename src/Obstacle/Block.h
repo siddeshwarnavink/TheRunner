@@ -8,7 +8,7 @@
 namespace Obstacle {
     class Block: public BaseObstacle {
         public:
-            Block(Actor::MainCharacter& mainCharacter);
+            Block(Actor::MainCharacter& mainCharacter, float posX, float posY);
             void loop();
     };
 }

@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "Obstacle/BaseObstacle.h"
 #include "Actor/MainCharacter.h"
 #include "Game.h"
@@ -9,12 +11,9 @@ namespace Obstacle {
     }
 
     bool BaseObstacle::isColliding() {
-        if (mainCharacter.getPosition().x >= obstacle.getPosition().x && mainCharacter.getPosition().x <= (obstacle.getPosition().x + obstacle.getGlobalBounds().width)) {
-            if (obstacle.getPosition().y - (mainCharacter.getPosition().y + mainCharacter.getGlobalBounds().height) <= 1.0f) {
-                return true;
-            }
-        }
-        return false;
+        sf::FloatRect mainCharacterBounds = mainCharacter.getGlobalBounds();
+        sf::FloatRect obstacleBounds = obstacle.getGlobalBounds();
+        return mainCharacterBounds.intersects(obstacleBounds);
     }
 
     void BaseObstacle::loop() {

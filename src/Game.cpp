@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "Actor/MainCharacter.h"
-#include "Obstacle/Block.h"
 #include "Obstacle/Floor.h"
+#include "Generator/BlockGenerator.h"
 
 bool Game::isColliding = false;
 
@@ -12,8 +12,8 @@ void Game::run() {
     }
 
     Actor::MainCharacter player;
-    Obstacle::Block block(player);
     Obstacle::Floor floor(player);
+    Generator::BlockGenerator blockGenerator(window, player);
 
     float movementVelocity;
 
@@ -41,14 +41,14 @@ void Game::run() {
         movementVelocity = 0.0f;
         this->isColliding = false;
 
-        block.loop();
+        blockGenerator.loop();
         floor.loop();
         player.loop();
 
         // Movement logic
         if(player.getState() != Actor::PlayerState::DEAD) {
             movementVelocity =  0.2f;
-            block.move(-movementVelocity, 0.0f);
+            blockGenerator.move(-movementVelocity, 0.0f);
             floor.move(-movementVelocity, 0.0f);
         
             // Gravity
@@ -64,7 +64,7 @@ void Game::run() {
         if(player.getState() != Actor::PlayerState::DEAD) {
             player.display(window);
         }
-        block.display(window);
+        blockGenerator.display();
         floor.display(window);
         window.display();
     }
