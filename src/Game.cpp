@@ -1,5 +1,7 @@
 #include "Game.h"
-#include "entity/Entity.h"
+#include "entity/Actor/MainCharacter.h"
+#include "entity/Obstacle/Block.h"
+#include "entity/Obstacle/Floor.h"
 
 void Game::run() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Idk Something");
