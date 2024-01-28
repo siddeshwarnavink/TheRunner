@@ -9,5 +9,6 @@ namespace Obstacle {
     class Floor: public BaseObstacle {
         public:
             Floor(Actor::MainCharacter& mainCharacter);
+            void loop() override;
     };
 }

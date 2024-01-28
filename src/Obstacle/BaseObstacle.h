@@ -13,7 +13,7 @@ namespace Obstacle {
 
         public:
             BaseObstacle(Actor::MainCharacter& mainCharacter);
-            void loop();
+            virtual void loop();
             void move(float x, float y);
             void display(sf::RenderWindow& window);
         };

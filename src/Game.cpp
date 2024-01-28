@@ -45,8 +45,8 @@ void Game::run() {
         floor.loop();
         player.loop();
 
-        // Movement logic
         if(player.getState() != Actor::PlayerState::DEAD) {
+            // Movement logic
             movementVelocity =  0.2f;
             blockGenerator.move(-movementVelocity, 0.0f);
             floor.move(-movementVelocity, 0.0f);
@@ -59,9 +59,7 @@ void Game::run() {
                 player.setState(Actor::PlayerState::FALLING);
                 player.move(0.0f, 0.2f);
             }
-        }
-
-        if(player.getState() != Actor::PlayerState::DEAD) {
+      
             player.display(window);
         }
         blockGenerator.display();

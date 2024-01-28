@@ -1,5 +1,3 @@
-#include <iostream>
-
 #include "Obstacle/Block.h"
 #include "Obstacle/BaseObstacle.h"
 #include "Actor/MainCharacter.h"
@@ -12,10 +10,8 @@ namespace Obstacle {
     }
 
     void Block::loop() {
-        std::cout<<"Block loop";
         BaseObstacle::loop();
         if (isColliding()) {
-            std::cout<<"Kill player";
             mainCharacter.setState(Actor::PlayerState::DEAD);
         }
     }

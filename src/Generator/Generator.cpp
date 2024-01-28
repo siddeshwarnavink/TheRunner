@@ -1,4 +1,3 @@
-#include <iostream>
 #include <random>
 
 #include "Generator/Generator.h"
@@ -23,8 +22,6 @@ namespace Generator {
 
 
     void Generator::generateObstacle() {
-        std::cout << "generateObstacle()" << std::endl;
-
         float minX = mainCharacter.getPosition().x + 500.0f;
         float maxX = minX + 100.0f;
         

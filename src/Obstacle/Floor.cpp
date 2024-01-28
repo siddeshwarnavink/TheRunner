@@ -7,4 +7,8 @@ namespace Obstacle {
         obstacle.setSize(sf::Vector2f(5000.0f,10.0f));
         obstacle.setPosition(-500.0f,380.0f);
     }
+
+    void Floor::loop() {
+        BaseObstacle::loop();
+    }
 }
