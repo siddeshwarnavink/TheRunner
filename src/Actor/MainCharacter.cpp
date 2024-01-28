@@ -1,6 +1,6 @@
-#include "entity/Actor/MainCharacter.h"
+#include "Actor/MainCharacter.h"
 
-namespace Entity::Actor {
+namespace Actor {
     sf::Sprite charactersprite;
 
     MainCharacter::MainCharacter() : state(PlayerState::FALLING), jumpHeight(140.0f) {

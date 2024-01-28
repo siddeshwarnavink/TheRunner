@@ -1,7 +1,7 @@
 #include "Game.h"
-#include "entity/Actor/MainCharacter.h"
-#include "entity/Obstacle/Block.h"
-#include "entity/Obstacle/Floor.h"
+#include "Actor/MainCharacter.h"
+#include "Obstacle/Block.h"
+#include "Obstacle/Floor.h"
 
 bool Game::isColliding = false;
 
@@ -11,9 +11,9 @@ void Game::run() {
         return;
     }
 
-    Entity::Actor::MainCharacter player;
-    Entity::Obstacle::Block block(player);
-    Entity::Obstacle::Floor floor(player);
+    Actor::MainCharacter player;
+    Obstacle::Block block(player);
+    Obstacle::Floor floor(player);
 
     float movementVelocity;
 
@@ -46,22 +46,22 @@ void Game::run() {
         player.loop();
 
         // Movement logic
-        if(player.getState() != Entity::Actor::PlayerState::DEAD) {
+        if(player.getState() != Actor::PlayerState::DEAD) {
             movementVelocity =  0.2f;
             block.move(-movementVelocity, 0.0f);
             floor.move(-movementVelocity, 0.0f);
         
             // Gravity
             if(isColliding) {
-                player.setState(Entity::Actor::PlayerState::RUNNING);
+                player.setState(Actor::PlayerState::RUNNING);
                 player.move(0.0f, 0.0f);
-            } else if(player.getState() != Entity::Actor::PlayerState::JUMPING) {
-                player.setState(Entity::Actor::PlayerState::FALLING);
+            } else if(player.getState() != Actor::PlayerState::JUMPING) {
+                player.setState(Actor::PlayerState::FALLING);
                 player.move(0.0f, 0.2f);
             }
         }
 
-        if(player.getState() != Entity::Actor::PlayerState::DEAD) {
+        if(player.getState() != Actor::PlayerState::DEAD) {
             player.display(window);
         }
         block.display(window);

@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace Entity::Actor {
+namespace Actor {
     enum PlayerState {
         RUNNING,
         DEAD,

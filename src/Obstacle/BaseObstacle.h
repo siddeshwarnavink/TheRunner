@@ -2,12 +2,11 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "entity/Actor/MainCharacter.h"
+#include "Actor/MainCharacter.h"
 
-namespace Entity::Obstacle {
+namespace Obstacle {
     class BaseObstacle {
         protected:
-            static std::vector<sf::RectangleShape> obstacleList;
             sf::RectangleShape obstacle;
             Actor::MainCharacter& mainCharacter;
             bool isColliding();

@@ -2,10 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "entity/Actor/MainCharacter.h"
-#include "entity/Obstacle/BaseObstacle.h"
+#include "Actor/MainCharacter.h"
+#include "Obstacle/BaseObstacle.h"
 
-namespace Entity::Obstacle {
+namespace Obstacle {
     class Block: public BaseObstacle {
         public:
             Block(Actor::MainCharacter& mainCharacter);

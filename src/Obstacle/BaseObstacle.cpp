@@ -1,10 +1,9 @@
-#include "entity/Obstacle/BaseObstacle.h"
-#include "entity/Actor/MainCharacter.h"
+#include "Obstacle/BaseObstacle.h"
+#include "Actor/MainCharacter.h"
 #include "Game.h"
 
-namespace Entity::Obstacle {
+namespace Obstacle {
     sf::RectangleShape obstacle;
-    std::vector<sf::RectangleShape> BaseObstacle::obstacleList;
 
     BaseObstacle::BaseObstacle(Actor::MainCharacter& mainCharacter) : mainCharacter(mainCharacter)  {
     }
@@ -19,6 +18,7 @@ namespace Entity::Obstacle {
     }
 
     void BaseObstacle::loop() {
+        // Collision
         Game::isColliding = !Game::isColliding && isColliding();
     }
 
