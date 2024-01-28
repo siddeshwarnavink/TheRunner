@@ -7,9 +7,9 @@ void Game::run() {
         return;
     }
 
-    Entity::MainCharacter mc;
-    Entity::Block block(mc);
-    Entity::Floor floor(mc);
+    Entity::Actor::MainCharacter mc;
+    Entity::Obstacle::Block block(mc);
+    Entity::Obstacle::Floor floor(mc);
 
     float movementVelocity;
     bool isColliding = false;

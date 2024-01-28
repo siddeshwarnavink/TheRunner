@@ -1,6 +1,6 @@
-#include "entity/Entity.h"
+#include "entity/Actor/MainCharacter.h"
 
-namespace Entity {
+namespace Entity::Actor {
     sf::Sprite charactersprite;
 
     MainCharacter::MainCharacter() : isFalling(true) {
