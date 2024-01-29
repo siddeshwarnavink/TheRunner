@@ -18,6 +18,7 @@ namespace Actor {
             float jumpHeight;
 
         public:
+            sf::Vector2f initialPosition;
             MainCharacter();
             void loop();
             void display(sf::RenderWindow& window);

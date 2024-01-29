@@ -31,7 +31,8 @@ namespace Generator {
 
         float randomX = Xdist(gen);
         
-        Obstacle::BaseObstacle* obstacle = generate(randomX, mainCharacter.getPosition().y + mainCharacter.getGlobalBounds().height - 50.0f);
+        Obstacle::BaseObstacle* obstacle = generate(randomX, mainCharacter.initialPosition.y + mainCharacter.getGlobalBounds().height 
+        - 30.0f);
         if (obstacle) {
             obstacleList.push_back(obstacle);
         }

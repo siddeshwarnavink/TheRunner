@@ -9,6 +9,7 @@ namespace Actor {
         }
         charactersprite.setTexture(texture);
         charactersprite.setPosition(40.0f, 200.0f);
+        initialPosition = charactersprite.getPosition();
     }
 
     void MainCharacter::display(sf::RenderWindow& window) {
@@ -29,6 +30,7 @@ namespace Actor {
                 }
             }
             else {
+                initialPosition = charactersprite.getPosition();
                 charactersprite.move(0.0f, 0.0f);
             }
         }
