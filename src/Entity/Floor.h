@@ -12,5 +12,6 @@ namespace Entity
     public:
         Floor(Actor::MainCharacter &mainCharacter);
         void loop() override;
+        sf::RectangleShape get();
     };
 }

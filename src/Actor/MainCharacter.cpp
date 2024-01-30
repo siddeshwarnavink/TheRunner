@@ -3,7 +3,7 @@
 namespace Actor {
     sf::Sprite charactersprite;
 
-    MainCharacter::MainCharacter() : state(PlayerState::FALLING), jumpHeight(140.0f) {
+    MainCharacter::MainCharacter() : state(PlayerState::FALLING), jumpHeight(130.0f) {
         if (!texture.loadFromFile("./assets/Character/mc.png")) {
             return;
         }

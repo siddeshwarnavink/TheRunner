@@ -15,7 +15,7 @@ void Game::run()
 
     Actor::MainCharacter player;
     Entity::Floor floor(player);
-    Generator::BlockGenerator blockGenerator(window, player);
+    Generator::BlockGenerator blockGenerator(window, player, floor);
 
     float movementVelocity;
 

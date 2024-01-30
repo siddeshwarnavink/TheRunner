@@ -14,4 +14,9 @@ namespace Entity
     {
         BaseEntity::loop();
     }
+
+    sf::RectangleShape Floor::get()
+    {
+        return texture;
+    }
 }

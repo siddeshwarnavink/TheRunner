@@ -7,6 +7,7 @@
 
 #include "Actor/MainCharacter.h"
 #include "Entity/Obstacle/BaseObstacle.h"
+#include "Entity/Floor.h"
 
 namespace Generator
 {
@@ -22,10 +23,11 @@ namespace Generator
         sf::RenderWindow &window;
         std::vector<Entity::Obstacle::BaseObstacle *> obstacleList;
         Actor::MainCharacter &mainCharacter;
+        Entity::Floor &floor;
         virtual Entity::Obstacle::BaseObstacle *generate(float xPos, float yPos);
 
     public:
-        Generator(sf::RenderWindow &window, Actor::MainCharacter &mainCharacter);
+        Generator(sf::RenderWindow &window, Actor::MainCharacter &mainCharacter, Entity::Floor &floor);
         ~Generator();
         void loop();
         void display();

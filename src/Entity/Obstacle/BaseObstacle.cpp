@@ -9,7 +9,7 @@ namespace Entity::Obstacle
 {
     sf::RectangleShape obstacle;
 
-    BaseObstacle::BaseObstacle(Actor::MainCharacter &mainCharacter) : BaseEntity(mainCharacter)
+    BaseObstacle::BaseObstacle(Actor::MainCharacter &mainCharacter, Entity::Floor &floor) : BaseEntity(mainCharacter), floor(floor)
     {
     }
 

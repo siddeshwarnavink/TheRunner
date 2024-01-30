@@ -6,8 +6,8 @@ namespace Generator
 {
     sf::Time Generator::interval = sf::seconds(1.0f);
 
-    Generator::Generator(sf::RenderWindow &window, Actor::MainCharacter &mainCharacter)
-        : window(window), mainCharacter(mainCharacter)
+    Generator::Generator(sf::RenderWindow &window, Actor::MainCharacter &mainCharacter, Entity::Floor &floor)
+        : window(window), mainCharacter(mainCharacter), floor(floor)
     {
     }
 

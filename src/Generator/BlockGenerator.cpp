@@ -5,13 +5,13 @@
 
 namespace Generator
 {
-    BlockGenerator::BlockGenerator(sf::RenderWindow &window, Actor::MainCharacter &mainCharacter) : Generator(window, mainCharacter)
+    BlockGenerator::BlockGenerator(sf::RenderWindow &window, Actor::MainCharacter &mainCharacter, Entity::Floor &floor) : Generator(window, mainCharacter, floor)
     {
     }
 
     Entity::Obstacle::BaseObstacle *BlockGenerator::generate(float xPos, float yPos)
     {
-        Entity::Obstacle::BaseObstacle *myBlock = new Entity::Obstacle::Block(mainCharacter, xPos, yPos);
+        Entity::Obstacle::BaseObstacle *myBlock = new Entity::Obstacle::Block(mainCharacter, floor, xPos, yPos);
         return myBlock;
     }
 }
