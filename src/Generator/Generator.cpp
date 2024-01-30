@@ -2,64 +2,77 @@
 
 #include "Generator/Generator.h"
 
-namespace Generator {
+namespace Generator
+{
     sf::Time Generator::interval = sf::seconds(1.0f);
 
-    Generator::Generator(sf::RenderWindow& window, Actor::MainCharacter& mainCharacter)
-        : window(window), mainCharacter(mainCharacter) {
+    Generator::Generator(sf::RenderWindow &window, Actor::MainCharacter &mainCharacter)
+        : window(window), mainCharacter(mainCharacter)
+    {
     }
 
-    Generator::~Generator() {
-        for (Obstacle::BaseObstacle* obstaclePtr : obstacleList) {
+    Generator::~Generator()
+    {
+        for (Entity::Obstacle::BaseObstacle *obstaclePtr : obstacleList)
+        {
             delete obstaclePtr;
         }
         obstacleList.clear();
     }
 
-    Obstacle::BaseObstacle* Generator::generate(float xPos, float yPos) {
+    Entity::Obstacle::BaseObstacle *Generator::generate(float xPos, float yPos)
+    {
         return nullptr;
     }
 
-
-    void Generator::generateObstacle() {
+    void Generator::generateObstacle()
+    {
         float minX = mainCharacter.getPosition().x + 500.0f;
         float maxX = minX + 100.0f;
-        
+
         std::random_device rd;
         std::mt19937 gen(rd());
         std::uniform_real_distribution<float> Xdist(minX, maxX);
 
         float randomX = Xdist(gen);
-        
-        Obstacle::BaseObstacle* obstacle = generate(randomX, mainCharacter.initialPosition.y + mainCharacter.getGlobalBounds().height 
-        - 30.0f);
-        if (obstacle) {
+
+        Entity::Obstacle::BaseObstacle *obstacle = generate(randomX, mainCharacter.initialPosition.y + mainCharacter.getGlobalBounds().height - 30.0f);
+        if (obstacle)
+        {
             obstacleList.push_back(obstacle);
         }
     }
 
-    void Generator::loop() {
-        for (Obstacle::BaseObstacle* obstaclePtr : obstacleList) {
-            if(obstaclePtr) {
+    void Generator::loop()
+    {
+        for (Entity::Obstacle::BaseObstacle *obstaclePtr : obstacleList)
+        {
+            if (obstaclePtr)
+            {
                 obstaclePtr->loop();
             }
         }
 
         elapsedTime = clock.getElapsedTime();
-        if (elapsedTime >= interval) {
+        if (elapsedTime >= interval)
+        {
             generateObstacle();
             clock.restart();
         }
     }
 
-    void Generator::display() {
-        for (Obstacle::BaseObstacle* obstaclePtr : obstacleList) {
+    void Generator::display()
+    {
+        for (Entity::Obstacle::BaseObstacle *obstaclePtr : obstacleList)
+        {
             obstaclePtr->display(window);
         }
     }
 
-    void Generator::move(float x, float y) {
-        for (Obstacle::BaseObstacle* obstaclePtr : obstacleList) {
+    void Generator::move(float x, float y)
+    {
+        for (Entity::Obstacle::BaseObstacle *obstaclePtr : obstacleList)
+        {
             obstaclePtr->move(x, y);
         }
     }

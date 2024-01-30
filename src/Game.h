@@ -1,9 +1,10 @@
 #include <SFML/Graphics.hpp>
 
-class Game {
+class Game
+{
     sf::Font font;
 
-    public: 
-        static bool isColliding;
-        void run();
+public:
+    static bool isColliding;
+    void run();
 };
