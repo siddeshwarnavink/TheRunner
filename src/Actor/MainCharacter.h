@@ -15,11 +15,16 @@ namespace Actor
     class MainCharacter
     {
     private:
+        int animationCount;
+        sf::Clock clock;
+        sf::Time elapsedTime;
+        static sf::Time animationInterval;
         sf::Texture texture;
-        sf::IntRect spriteRegion;
         sf::Sprite charactersprite;
         PlayerState state;
         float jumpHeight;
+        void playerAnimation();
+        bool initialAnimationDone;
 
     public:
         sf::Vector2f initialPosition;

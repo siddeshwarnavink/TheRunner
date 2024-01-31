@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "Game.h"
 #include "Actor/MainCharacter.h"
 #include "Entity/Floor.h"
@@ -10,8 +12,22 @@ void Game::run()
     sf::RenderWindow window(sf::VideoMode(800, 600), "Jumping Game");
     if (!font.loadFromFile("./assets/font/Roboto-Black.ttf"))
     {
+        std::cout << "Error: Failed to load Roboto-Black.ttf" << std::endl;
         return;
     }
+
+    // Backgroud image
+    sf::Texture backgroundTexture;
+    sf::Sprite backgroundSprite;
+    if (!backgroundTexture.loadFromFile("./assets/texture/background/sky.png"))
+    {
+        std::cout << "Error: Failed to load sky.png" << std::endl;
+        return;
+    }
+    backgroundSprite.setTexture(backgroundTexture);
+    backgroundSprite.setPosition(0, 0);
+    float scaleFactor = static_cast<float>(window.getSize().x) / backgroundSprite.getTexture()->getSize().x;
+    backgroundSprite.setScale(scaleFactor, scaleFactor);
 
     Actor::MainCharacter player;
     Entity::Floor floor(player);
@@ -26,6 +42,7 @@ void Game::run()
     // Game loop
     while (window.isOpen())
     {
+
         sf::Time elapsed = clock.restart();
         if (elapsed < frameTime)
         {
@@ -34,6 +51,7 @@ void Game::run()
         }
 
         window.clear();
+        window.draw(backgroundSprite);
 
         sf::Event event;
         while (window.pollEvent(event))

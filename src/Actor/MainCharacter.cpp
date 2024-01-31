@@ -3,8 +3,9 @@
 namespace Actor
 {
     sf::Sprite charactersprite;
+    sf::Time MainCharacter::animationInterval = sf::seconds(0.25f);
 
-    MainCharacter::MainCharacter() : state(PlayerState::FALLING), jumpHeight(130.0f), spriteRegion(228, 36, 24, 24)
+    MainCharacter::MainCharacter() : state(PlayerState::FALLING), jumpHeight(130.0f), animationCount(1), initialAnimationDone(false)
     {
         if (!texture.loadFromFile("./assets/texture/entity/main-character.png"))
         {
@@ -12,6 +13,7 @@ namespace Actor
         }
         charactersprite.setTexture(texture);
         charactersprite.setPosition(10.0f, 10.0f);
+        sf::IntRect spriteRegion(197, 36, 24, 24);
         charactersprite.setTextureRect(spriteRegion);
         charactersprite.setScale(3.5f, 3.5f);
         initialPosition = charactersprite.getPosition();
@@ -22,8 +24,39 @@ namespace Actor
         window.draw(charactersprite);
     }
 
+    void MainCharacter::playerAnimation()
+    {
+        int setAnimationCount = 1;
+        if (animationCount == 1)
+        {
+            sf::IntRect spriteRegion(228, 36, 24, 24);
+            charactersprite.setTextureRect(spriteRegion);
+            setAnimationCount = 2;
+        }
+        else if (animationCount == 2)
+        {
+            sf::IntRect spriteRegion(197, 36, 24, 24);
+            charactersprite.setTextureRect(spriteRegion);
+            setAnimationCount = 1;
+        }
+        animationCount = setAnimationCount;
+    }
+
     void MainCharacter::loop()
     {
+        // Animtion
+        elapsedTime += clock.restart();
+        if (!initialAnimationDone)
+        {
+            playerAnimation();
+            initialAnimationDone = true;
+        }
+        else if (elapsedTime >= animationInterval)
+        {
+            playerAnimation();
+            elapsedTime = sf::Time::Zero;
+        }
+
         if (state != PlayerState::DEAD)
         {
             // Jump logic
