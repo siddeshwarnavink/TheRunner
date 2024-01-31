@@ -20,7 +20,7 @@ namespace Actor
         sf::Time elapsedTime;
         static sf::Time animationInterval;
         sf::Texture texture;
-        sf::Sprite charactersprite;
+        sf::Sprite playerSprite;
         PlayerState state;
         float jumpHeight;
         void playerAnimation();

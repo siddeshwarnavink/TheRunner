@@ -2,7 +2,7 @@
 
 namespace Actor
 {
-    sf::Sprite charactersprite;
+    sf::Sprite playerSprite;
     sf::Time MainCharacter::animationInterval = sf::seconds(0.25f);
 
     MainCharacter::MainCharacter() : state(PlayerState::FALLING), jumpHeight(130.0f), animationCount(1), initialAnimationDone(false)
@@ -11,35 +11,46 @@ namespace Actor
         {
             return;
         }
-        charactersprite.setTexture(texture);
-        charactersprite.setPosition(10.0f, 10.0f);
+        playerSprite.setTexture(texture);
+        playerSprite.setPosition(10.0f, 10.0f);
         sf::IntRect spriteRegion(197, 36, 24, 24);
-        charactersprite.setTextureRect(spriteRegion);
-        charactersprite.setScale(3.5f, 3.5f);
-        initialPosition = charactersprite.getPosition();
+        playerSprite.setTextureRect(spriteRegion);
+        playerSprite.setScale(3.5f, 3.5f);
+        initialPosition = playerSprite.getPosition();
     }
 
     void MainCharacter::display(sf::RenderWindow &window)
     {
-        window.draw(charactersprite);
+        window.draw(playerSprite);
     }
 
     void MainCharacter::playerAnimation()
     {
-        int setAnimationCount = 1;
-        if (animationCount == 1)
+        sf::IntRect spriteRegion;
+
+        switch (state)
         {
-            sf::IntRect spriteRegion(228, 36, 24, 24);
-            charactersprite.setTextureRect(spriteRegion);
-            setAnimationCount = 2;
+        case PlayerState::JUMPING:
+            spriteRegion = sf::IntRect(36, 36, 24, 24);
+            break;
+        case PlayerState::FALLING:
+            spriteRegion = sf::IntRect(98, 36, 24, 24);
+            break;
+        default:
+            if (animationCount == 1)
+            {
+                spriteRegion = sf::IntRect(228, 36, 24, 24);
+                animationCount = 2;
+            }
+            else if (animationCount == 2)
+            {
+                spriteRegion = sf::IntRect(197, 36, 24, 24);
+                animationCount = 1;
+            }
+            break;
         }
-        else if (animationCount == 2)
-        {
-            sf::IntRect spriteRegion(197, 36, 24, 24);
-            charactersprite.setTextureRect(spriteRegion);
-            setAnimationCount = 1;
-        }
-        animationCount = setAnimationCount;
+
+        playerSprite.setTextureRect(spriteRegion);
     }
 
     void MainCharacter::loop()
@@ -63,10 +74,10 @@ namespace Actor
             if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && state == PlayerState::RUNNING) || state == PlayerState::JUMPING)
             {
 
-                if (charactersprite.getPosition().y >= jumpHeight)
+                if (playerSprite.getPosition().y >= jumpHeight)
                 {
                     state = PlayerState::JUMPING;
-                    charactersprite.move(0.0f, -0.15f);
+                    playerSprite.move(0.0f, -0.15f);
                 }
                 else
                 {
@@ -75,13 +86,13 @@ namespace Actor
             }
             else
             {
-                initialPosition = charactersprite.getPosition();
-                charactersprite.move(0.0f, 0.0f);
+                initialPosition = playerSprite.getPosition();
+                playerSprite.move(0.0f, 0.0f);
             }
         }
 
         // Void kill
-        if (charactersprite.getPosition().y >= 500.f)
+        if (playerSprite.getPosition().y >= 500.f)
         {
             state = PlayerState::DEAD;
         }
@@ -89,17 +100,17 @@ namespace Actor
 
     void MainCharacter::move(float x, float y)
     {
-        charactersprite.move(x, y);
+        playerSprite.move(x, y);
     }
 
     sf::FloatRect MainCharacter::getGlobalBounds()
     {
-        return charactersprite.getGlobalBounds();
+        return playerSprite.getGlobalBounds();
     }
 
     sf::Vector2f MainCharacter::getPosition()
     {
-        return charactersprite.getPosition();
+        return playerSprite.getPosition();
     }
 
     void MainCharacter::setState(PlayerState state)
