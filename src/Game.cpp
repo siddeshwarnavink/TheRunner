@@ -1,85 +1,100 @@
 #include <iostream>
 
 #include "Game.h"
-#include "State/GameState.h"
-#include "Actor/MainCharacter.h"
-#include "Entity/Floor.h"
-#include "Generator/BlockGenerator.h"
-#include "Static/SkyBackground.h"
 
-bool Game::isColliding = false;
+const float targetFPS = 2000.0f;
+bool Game::running = false, Game::isColliding = false;
 
-void Game::run()
+Game::Game() : window(sf::VideoMode(800, 600), "Jumping Game"),
+               floor(player),
+               gameState(window, player),
+               background(window),
+               blockGenerator(player, floor, window),
+               frameTime(sf::seconds(1.0f / targetFPS))
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Jumping Game");
+    if (running)
+    {
+        std::cout << "Error: Game is already running" << std::endl;
+        exit(0);
+    }
+    running = true;
+}
+
+void Game::loadAssets()
+{
     if (!font.loadFromFile("./assets/font/Roboto-Black.ttf"))
     {
         std::cout << "Error: Failed to load Roboto-Black.ttf" << std::endl;
-        return;
+        exit(1);
     }
+}
 
-    Actor::MainCharacter player;
-    Entity::Floor floor(player);
-    State::GameState gameState(window, player);
-    Static::SkyBackground background(window);
-    Generator::BlockGenerator blockGenerator(player, floor, window);
+void Game::exitWindow()
+{
+    sf::Event event;
+    while (window.pollEvent(event))
+    {
+        if (event.type == sf::Event::Closed)
+        {
+            window.close();
+        }
+    }
+}
 
-    float movementVelocity;
+void Game::fpsLock()
+{
+    sf::Time elapsed = fpsClock.restart();
+    if (elapsed < frameTime)
+    {
+        sf::sleep(frameTime - elapsed);
+        elapsed = frameTime;
+    }
+}
 
-    sf::Clock clock;
-    float targetFPS = 2000.0f;
-    sf::Time frameTime = sf::seconds(1.0f / targetFPS);
+void Game::playerPhysics()
+{
+    // Movement logic
+    movementVelocity = 0.2f;
+    blockGenerator.move(-movementVelocity, 0.0f);
+    floor.move(-movementVelocity, 0.0f);
+
+    // Gravity
+    if (isColliding)
+    {
+        player.setState(Actor::PlayerState::RUNNING);
+        player.move(0.0f, 0.0f);
+    }
+    else if (player.getState() != Actor::PlayerState::JUMPING)
+    {
+        player.setState(Actor::PlayerState::FALLING);
+        player.move(0.0f, 0.2f);
+    }
+}
+
+void Game::run()
+{
+    loadAssets();
 
     // Game loop
     while (window.isOpen())
     {
+        movementVelocity = 0.0f;
+        this->isColliding = false;
 
-        sf::Time elapsed = clock.restart();
-        if (elapsed < frameTime)
-        {
-            sf::sleep(frameTime - elapsed);
-            elapsed = frameTime;
-        }
+        exitWindow();
+        fpsLock();
 
         window.clear();
         background.draw();
 
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-            {
-                window.close();
-            }
-        }
-
-        movementVelocity = 0.0f;
-        this->isColliding = false;
-
         blockGenerator.loop();
         floor.loop();
-        gameState.getPlayer().loop();
+        player.loop();
 
-        if (gameState.getPlayer().getState() != Actor::PlayerState::DEAD)
+        if (player.getState() != Actor::PlayerState::DEAD)
         {
-            // Movement logic
-            movementVelocity = 0.2f;
-            blockGenerator.move(-movementVelocity, 0.0f);
-            floor.move(-movementVelocity, 0.0f);
-
-            // Gravity
-            if (isColliding)
-            {
-                gameState.getPlayer().setState(Actor::PlayerState::RUNNING);
-                gameState.getPlayer().move(0.0f, 0.0f);
-            }
-            else if (gameState.getPlayer().getState() != Actor::PlayerState::JUMPING)
-            {
-                gameState.getPlayer().setState(Actor::PlayerState::FALLING);
-                gameState.getPlayer().move(0.0f, 0.2f);
-            }
-
-            gameState.getPlayer().display(window);
+            playerPhysics();
+            player.display(window);
         }
         blockGenerator.display();
         floor.display(window);
