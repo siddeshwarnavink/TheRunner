@@ -4,6 +4,7 @@
 #include "Actor/MainCharacter.h"
 #include "Entity/Floor.h"
 #include "Generator/BlockGenerator.h"
+#include "Static/SkyBackground.h"
 
 bool Game::isColliding = false;
 
@@ -15,20 +16,8 @@ void Game::run()
         std::cout << "Error: Failed to load Roboto-Black.ttf" << std::endl;
         return;
     }
-
-    // Backgroud image
-    sf::Texture backgroundTexture;
-    sf::Sprite backgroundSprite;
-    if (!backgroundTexture.loadFromFile("./assets/texture/background/sky.png"))
-    {
-        std::cout << "Error: Failed to load sky.png" << std::endl;
-        return;
-    }
-    backgroundSprite.setTexture(backgroundTexture);
-    backgroundSprite.setPosition(0, 0);
-    float scaleFactor = static_cast<float>(window.getSize().x) / backgroundSprite.getTexture()->getSize().x;
-    backgroundSprite.setScale(scaleFactor, scaleFactor);
-
+    
+    Static::SkyBackground background(window);
     Actor::MainCharacter player;
     Entity::Floor floor(player);
     Generator::BlockGenerator blockGenerator(window, player, floor);
@@ -51,7 +40,7 @@ void Game::run()
         }
 
         window.clear();
-        window.draw(backgroundSprite);
+        background.draw();
 
         sf::Event event;
         while (window.pollEvent(event))
