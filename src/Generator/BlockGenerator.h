@@ -5,7 +5,7 @@ namespace Generator
     class BlockGenerator : public Generator
     {
     public:
-        BlockGenerator(sf::RenderWindow &window, Actor::MainCharacter &mainCharacter, Entity::Floor &floor);
+        BlockGenerator(Actor::MainCharacter &player, Entity::Floor &floor, sf::RenderWindow &window);
 
     protected:
         Entity::Obstacle::BaseObstacle *generate(float xPos, float yPos) override;

@@ -2,7 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Actor/MainCharacter.h"
 #include "Entity/BaseEntity.h"
 
 namespace Entity
@@ -10,7 +9,7 @@ namespace Entity
     class Floor : public BaseEntity
     {
     public:
-        Floor(Actor::MainCharacter &mainCharacter);
+        Floor(Actor::MainCharacter &player);
         void loop() override;
         sf::RectangleShape get();
     };

@@ -2,14 +2,10 @@
 
 #include "Entity/Obstacle/BaseObstacle.h"
 #include "Entity/BaseEntity.h"
-#include "Actor/MainCharacter.h"
-#include "Game.h"
 
 namespace Entity::Obstacle
 {
-    sf::RectangleShape obstacle;
-
-    BaseObstacle::BaseObstacle(Actor::MainCharacter &mainCharacter, Entity::Floor &floor) : BaseEntity(mainCharacter), floor(floor)
+    BaseObstacle::BaseObstacle(Actor::MainCharacter &player, Entity::Floor &floor) : BaseEntity(player), floor(floor)
     {
     }
 
@@ -18,7 +14,7 @@ namespace Entity::Obstacle
         BaseEntity::loop();
         if (isColliding())
         {
-            mainCharacter.setState(Actor::PlayerState::DEAD);
+            player.setState(Actor::PlayerState::DEAD);
         }
     }
 }

@@ -4,7 +4,7 @@
 
 namespace Entity
 {
-    Floor::Floor(Actor::MainCharacter &mainCharacter) : BaseEntity(mainCharacter)
+    Floor::Floor(Actor::MainCharacter &player) : BaseEntity(player)
     {
         texture.setSize(sf::Vector2f(5000.0f, 10.0f));
         texture.setPosition(-500.0f, 380.0f);

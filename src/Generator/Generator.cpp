@@ -6,8 +6,7 @@ namespace Generator
 {
     sf::Time Generator::interval = sf::seconds(1.0f);
 
-    Generator::Generator(sf::RenderWindow &window, Actor::MainCharacter &mainCharacter, Entity::Floor &floor)
-        : window(window), mainCharacter(mainCharacter), floor(floor)
+    Generator::Generator(Actor::MainCharacter &player, Entity::Floor &floor, sf::RenderWindow &window) : player(player), floor(floor), window(window)
     {
     }
 
@@ -27,7 +26,7 @@ namespace Generator
 
     void Generator::generateObstacle()
     {
-        float minX = mainCharacter.getPosition().x + 500.0f;
+        float minX = player.getPosition().x + 500.0f;
         float maxX = minX + 100.0f;
 
         std::random_device rd;
@@ -36,7 +35,7 @@ namespace Generator
 
         float randomX = Xdist(gen);
 
-        Entity::Obstacle::BaseObstacle *obstacle = generate(randomX, mainCharacter.initialPosition.y + mainCharacter.getGlobalBounds().height - 30.0f);
+        Entity::Obstacle::BaseObstacle *obstacle = generate(randomX, player.initialPosition.y + player.getGlobalBounds().height - 30.0f);
         if (obstacle)
         {
             obstacleList.push_back(obstacle);

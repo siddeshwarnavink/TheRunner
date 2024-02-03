@@ -3,8 +3,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "Entity/BaseEntity.h"
-#include "Entity/Floor.h"
 #include "Actor/MainCharacter.h"
+#include "Entity/Floor.h"
 
 namespace Entity::Obstacle
 {
@@ -14,7 +14,7 @@ namespace Entity::Obstacle
         Entity::Floor &floor;
 
     public:
-        BaseObstacle(Actor::MainCharacter &mainCharacter, Entity::Floor &floor);
+        BaseObstacle(Actor::MainCharacter &player, Entity::Floor &floor);
         virtual void loop();
     };
 }

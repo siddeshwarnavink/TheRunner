@@ -40,6 +40,7 @@ run:
 
 
 clean:
-	rm -f $(OBJ_DIR)/*.o $(OBJ_DIR)/main
+	find $(OBJ_DIR) -name '*.o' -exec rm -f {} +
+	rm -f $(OBJ_DIR)/main
 
 .PHONY: all

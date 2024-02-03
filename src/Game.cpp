@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Game.h"
+#include "State/GameState.h"
 #include "Actor/MainCharacter.h"
 #include "Entity/Floor.h"
 #include "Generator/BlockGenerator.h"
@@ -16,11 +17,12 @@ void Game::run()
         std::cout << "Error: Failed to load Roboto-Black.ttf" << std::endl;
         return;
     }
-    
-    Static::SkyBackground background(window);
+
     Actor::MainCharacter player;
     Entity::Floor floor(player);
-    Generator::BlockGenerator blockGenerator(window, player, floor);
+    State::GameState gameState(window, player);
+    Static::SkyBackground background(window);
+    Generator::BlockGenerator blockGenerator(player, floor, window);
 
     float movementVelocity;
 
@@ -56,9 +58,9 @@ void Game::run()
 
         blockGenerator.loop();
         floor.loop();
-        player.loop();
+        gameState.getPlayer().loop();
 
-        if (player.getState() != Actor::PlayerState::DEAD)
+        if (gameState.getPlayer().getState() != Actor::PlayerState::DEAD)
         {
             // Movement logic
             movementVelocity = 0.2f;
@@ -68,16 +70,16 @@ void Game::run()
             // Gravity
             if (isColliding)
             {
-                player.setState(Actor::PlayerState::RUNNING);
-                player.move(0.0f, 0.0f);
+                gameState.getPlayer().setState(Actor::PlayerState::RUNNING);
+                gameState.getPlayer().move(0.0f, 0.0f);
             }
-            else if (player.getState() != Actor::PlayerState::JUMPING)
+            else if (gameState.getPlayer().getState() != Actor::PlayerState::JUMPING)
             {
-                player.setState(Actor::PlayerState::FALLING);
-                player.move(0.0f, 0.2f);
+                gameState.getPlayer().setState(Actor::PlayerState::FALLING);
+                gameState.getPlayer().move(0.0f, 0.2f);
             }
 
-            player.display(window);
+            gameState.getPlayer().display(window);
         }
         blockGenerator.display();
         floor.display(window);

@@ -5,8 +5,9 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "Actor/MainCharacter.h"
+#include "State/GameState.h"
 #include "Entity/Obstacle/BaseObstacle.h"
+#include "Actor/MainCharacter.h"
 #include "Entity/Floor.h"
 
 namespace Generator
@@ -20,14 +21,14 @@ namespace Generator
         void generateObstacle();
 
     protected:
+        Actor::MainCharacter &player;
+        Entity::Floor &floor;
         sf::RenderWindow &window;
         std::vector<Entity::Obstacle::BaseObstacle *> obstacleList;
-        Actor::MainCharacter &mainCharacter;
-        Entity::Floor &floor;
         virtual Entity::Obstacle::BaseObstacle *generate(float xPos, float yPos);
 
     public:
-        Generator(sf::RenderWindow &window, Actor::MainCharacter &mainCharacter, Entity::Floor &floor);
+        Generator(Actor::MainCharacter &player, Entity::Floor &floor, sf::RenderWindow &window);
         ~Generator();
         void loop();
         void display();
