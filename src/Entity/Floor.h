@@ -12,8 +12,7 @@ namespace Entity
         {
             FLAT,
             DECLINE,
-            INCLINE,
-            DECLINE_FLAT
+            INCLINE
         };
 
         class FloorTile
@@ -25,6 +24,7 @@ namespace Entity
         public:
             FloorTile(sf::Sprite tileSprite, FloorVariant type);
             sf::Sprite &getTileSprite();
+            FloorVariant getFloorType();
         };
 
     }
@@ -32,9 +32,16 @@ namespace Entity
     class Floor : public BaseEntity
     {
     private:
+        float xPos, yPos;
         static const int floorCount;
+        sf::Clock timer;
         sf::Texture tileTexture;
+        FloorComponents::FloorTile *prevTile;
         std::vector<FloorComponents::FloorTile *> floorTiles;
+        bool assertProbability(float probability);
+        std::vector<FloorComponents::FloorVariant> generateTerrain(int size);
+        std::vector<FloorComponents::FloorVariant> generateTerrain();
+        void createFloorTile(FloorComponents::FloorVariant floorType);
         void initializeTiles();
 
     protected:

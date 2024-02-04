@@ -3,7 +3,7 @@
 namespace Actor
 {
     sf::Sprite playerSprite;
-    sf::Time MainCharacter::animationInterval = sf::seconds(0.25f);
+    sf::Time MainCharacter::animationInterval = sf::seconds(0.15f);
 
     MainCharacter::MainCharacter() : state(PlayerState::FALLING), jumpHeight(130.0f), animationCount(1), initialAnimationDone(false)
     {
