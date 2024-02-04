@@ -23,7 +23,13 @@ namespace Entity
     {
         if (entitySprite.getTexture() == nullptr)
         {
-            position = texture.getPosition();
+            if (texture.getPosition() != sf::Vector2f(0, 0))
+            {
+                if (texture.getPosition() != sf::Vector2f(0, 0))
+                {
+                    position = texture.getPosition();
+                }
+            }
         }
         else
         {
@@ -38,7 +44,10 @@ namespace Entity
     {
         if (entitySprite.getTexture() == nullptr)
         {
-            window.draw(texture);
+            if (texture.getPosition() != sf::Vector2f(0, 0))
+            {
+                window.draw(texture);
+            }
         }
         else
         {
@@ -50,7 +59,10 @@ namespace Entity
     {
         if (entitySprite.getTexture() == nullptr)
         {
-            texture.move(x, y);
+            if (texture.getPosition() != sf::Vector2f(0, 0))
+            {
+                texture.move(x, y);
+            }
         }
         else
         {
