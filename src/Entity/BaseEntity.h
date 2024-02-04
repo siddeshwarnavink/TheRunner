@@ -10,8 +10,10 @@ namespace Entity
     class BaseEntity
     {
     protected:
+        sf::Vector2f position;
         Actor::MainCharacter &player;
         sf::RectangleShape texture;
+        sf::Sprite entitySprite;
         bool isColliding();
 
     public:

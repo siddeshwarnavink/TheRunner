@@ -56,7 +56,7 @@ void Game::playerPhysics()
     // Movement logic
     movementVelocity = 0.2f;
     blockGenerator.move(-movementVelocity, 0.0f);
-    floor.move(-movementVelocity, 0.0f);
+    // floor.move(-movementVelocity, 0.0f);
 
     // Gravity
     if (isColliding)

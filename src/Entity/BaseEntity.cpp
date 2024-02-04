@@ -15,23 +15,46 @@ namespace Entity
     bool BaseEntity::isColliding()
     {
         sf::FloatRect mainCharacterBounds = player.getGlobalBounds();
-        sf::FloatRect obstacleBounds = texture.getGlobalBounds();
+        sf::FloatRect obstacleBounds = entitySprite.getTexture() == nullptr ? texture.getGlobalBounds() : entitySprite.getGlobalBounds();
         return mainCharacterBounds.intersects(obstacleBounds);
     }
 
     void BaseEntity::loop()
     {
+        if (entitySprite.getTexture() == nullptr)
+        {
+            position = texture.getPosition();
+        }
+        else
+        {
+            position = entitySprite.getPosition();
+        }
+
         // Collision
         Game::isColliding = !Game::isColliding && isColliding();
     }
 
     void BaseEntity::display(sf::RenderWindow &window)
     {
-        window.draw(texture);
+        if (entitySprite.getTexture() == nullptr)
+        {
+            window.draw(texture);
+        }
+        else
+        {
+            window.draw(entitySprite);
+        }
     }
 
     void BaseEntity::move(float x, float y)
     {
-        texture.move(x, y);
+        if (entitySprite.getTexture() == nullptr)
+        {
+            texture.move(x, y);
+        }
+        else
+        {
+            entitySprite.move(x, y);
+        }
     }
 }

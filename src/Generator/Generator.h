@@ -15,6 +15,7 @@ namespace Generator
     class Generator
     {
     private:
+        float spawningProbability;
         sf::Clock clock;
         sf::Time elapsedTime;
         static sf::Time interval;
@@ -30,6 +31,7 @@ namespace Generator
     public:
         Generator(Actor::MainCharacter &player, Entity::Floor &floor, sf::RenderWindow &window);
         ~Generator();
+        void setSpawningProbability(float probability);
         void loop();
         void display();
         void move(float x, float y);

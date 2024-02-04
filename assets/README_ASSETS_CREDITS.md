@@ -26,6 +26,11 @@ Please find below the list of external texture assets used in the game, along wi
    - Artist: [Makobyko](https://makobyko.itch.io/)
    - Asset Link: [Basic Tileset](https://makobyko.itch.io/basic-tileset)
 
+5. **Traps**
+   - Artist: [bdragon1727](https://bdragon1727.itch.io/)
+   - Asset Link: [Free Trap Platformer](https://bdragon1727.itch.io/free-trap-platformer)
+
+
 ## Sounds
 
 1. **Background Music**

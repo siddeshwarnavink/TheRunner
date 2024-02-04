@@ -4,6 +4,7 @@
 #include "Actor/MainCharacter.h"
 #include "Entity/Floor.h"
 #include "Generator/BlockGenerator.h"
+#include "Generator/SurikenGenerator.h"
 #include "Static/SkyBackground.h"
 
 class Game
@@ -17,7 +18,8 @@ private:
     Entity::Floor floor;
     State::GameState gameState;
     Static::SkyBackground background;
-    Generator::BlockGenerator blockGenerator;
+    // Generator::BlockGenerator blockGenerator;
+    Generator::SurikenGenerator blockGenerator;
     sf::Clock fpsClock;
     sf::Time frameTime;
     void loadAssets();

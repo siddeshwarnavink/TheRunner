@@ -6,7 +6,10 @@ namespace Generator
 {
     sf::Time Generator::interval = sf::seconds(1.0f);
 
-    Generator::Generator(Actor::MainCharacter &player, Entity::Floor &floor, sf::RenderWindow &window) : player(player), floor(floor), window(window)
+    Generator::Generator(Actor::MainCharacter &player, Entity::Floor &floor, sf::RenderWindow &window) : player(player),
+                                                                                                         floor(floor),
+                                                                                                         window(window),
+                                                                                                         spawningProbability(1.0f)
     {
     }
 
@@ -55,7 +58,14 @@ namespace Generator
         elapsedTime = clock.getElapsedTime();
         if (elapsedTime >= interval)
         {
-            generateObstacle();
+            if (player.getState() != Actor::DEAD)
+            {
+                float randomValue = static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX);
+                if (randomValue < spawningProbability)
+                {
+                    generateObstacle();
+                }
+            }
             clock.restart();
         }
     }
@@ -74,5 +84,9 @@ namespace Generator
         {
             obstaclePtr->move(x, y);
         }
+    }
+
+    void Generator::setSpawningProbability(float probability) {
+        spawningProbability = probability;
     }
 }
