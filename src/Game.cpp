@@ -1,16 +1,19 @@
 #include <iostream>
+#include <random>
 
 #include "Game.h"
 
-const float targetFPS = 2000.0f;
+const float initialFPS = 200.0f;
 bool Game::running = false, Game::isColliding = false;
+float Game::speedBoost = 0.0f;
 
 Game::Game() : window(sf::VideoMode(800, 600), "Jumping Game"),
                floor(player),
                gameState(window, player),
                background(window),
                blockGenerator(player, floor, window),
-               frameTime(sf::seconds(1.0f / targetFPS))
+               frameTime(sf::seconds(0.1f / currentFPS)),
+               currentFPS(initialFPS)
 {
     if (running)
     {
@@ -43,6 +46,8 @@ void Game::exitWindow()
 
 void Game::fpsLock()
 {
+    frameTime = sf::seconds(0.1f / currentFPS);
+
     sf::Time elapsed = fpsClock.restart();
     if (elapsed < frameTime)
     {
@@ -54,7 +59,8 @@ void Game::fpsLock()
 void Game::playerPhysics()
 {
     // Movement logic
-    movementVelocity = 0.2f;
+    const float initialSpeed = 0.2f;
+    movementVelocity = 0.2f + (speedBoost / 200 * initialSpeed);
     blockGenerator.move(-movementVelocity, 0.0f);
     floor.move(-movementVelocity, 0.0f);
 
@@ -71,6 +77,27 @@ void Game::playerPhysics()
     }
 }
 
+void Game::handleSpeedBoost()
+{
+    speedBoostTime = speedBoostClock.getElapsedTime();
+
+    if (speedBoostTime.asSeconds() >= 20)
+    {
+        speedBoostClock.restart();
+
+        if (currentFPS + 5 < 500)
+        {
+            std::random_device rd;
+            std::mt19937 boost(rd());
+            std::uniform_real_distribution<float> dis(2.0f, 5.0f);
+            float randomBoost = dis(boost);
+
+            speedBoost += randomBoost;
+            currentFPS += currentFPS * (randomBoost / 200 * initialFPS);
+        }
+    }
+}
+
 void Game::run()
 {
     loadAssets();
@@ -83,6 +110,7 @@ void Game::run()
 
         exitWindow();
         fpsLock();
+        handleSpeedBoost();
 
         window.clear();
         background.draw();

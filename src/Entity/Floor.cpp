@@ -142,7 +142,11 @@ namespace Entity
         if (floorTiles.empty() || floorTiles.size() != floorCount)
             return;
 
-        if (timer.getElapsedTime().asSeconds() >= 0.05f)
+        const float initialClockTime = 0.1f;
+
+        float clockTime = initialClockTime - (Game::speedBoost / 5 * initialClockTime);
+
+        if (timer.getElapsedTime().asSeconds() >= clockTime)
         {
             timer.restart();
 

@@ -12,6 +12,7 @@ class Game
 private:
     static bool running;
     float movementVelocity;
+    float currentFPS;
     sf::Font font;
     sf::RenderWindow window;
     Actor::MainCharacter player;
@@ -21,14 +22,18 @@ private:
     // Generator::BlockGenerator blockGenerator;
     Generator::SurikenGenerator blockGenerator;
     sf::Clock fpsClock;
+    sf::Clock speedBoostClock;
     sf::Time frameTime;
+    sf::Time speedBoostTime;
     void loadAssets();
     void exitWindow();
     void fpsLock();
+    void handleSpeedBoost();
     void playerPhysics();
 
 public:
     Game();
     static bool isColliding;
+    static float speedBoost;
     void run();
 };
