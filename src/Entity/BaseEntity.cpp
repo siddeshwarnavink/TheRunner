@@ -12,6 +12,11 @@ namespace Entity
     {
     }
 
+    sf::Sprite BaseEntity::getSprite()
+    {
+        return entitySprite;
+    }
+
     bool BaseEntity::isColliding()
     {
         sf::FloatRect mainCharacterBounds = player.getGlobalBounds();

@@ -1,4 +1,5 @@
 #include <random>
+#include <stack>
 
 #include "Generator/Generator.h"
 
@@ -47,12 +48,29 @@ namespace Generator
 
     void Generator::loop()
     {
-        for (Entity::Obstacle::BaseObstacle *obstaclePtr : obstacleList)
+        std::stack<int> entityToRemove;
+
+        for (size_t i = 0; i < obstacleList.size(); ++i)
         {
-            if (obstaclePtr)
+            Entity::Obstacle::BaseObstacle *obstaclePtr = obstacleList[i];
+
+            if (obstaclePtr && abs(obstaclePtr->getSprite().getPosition().x - player.getPosition().x) > 666)
+            {
+                entityToRemove.push(i);
+            }
+
+            else if (obstaclePtr)
             {
                 obstaclePtr->loop();
             }
+        }
+
+        while (!entityToRemove.empty())
+        {
+            delete obstacleList[entityToRemove.top()];
+            obstacleList.erase(obstacleList.begin() + entityToRemove.top());
+
+            entityToRemove.pop();
         }
 
         elapsedTime = clock.getElapsedTime();
@@ -86,7 +104,8 @@ namespace Generator
         }
     }
 
-    void Generator::setSpawningProbability(float probability) {
+    void Generator::setSpawningProbability(float probability)
+    {
         spawningProbability = probability;
     }
 }

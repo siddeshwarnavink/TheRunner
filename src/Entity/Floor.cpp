@@ -163,7 +163,6 @@ namespace Entity
         }
     }
 
-    // TODO: Make this return actual sprite
     sf::Sprite Floor::get()
     {
         sf::Sprite floorSprite;

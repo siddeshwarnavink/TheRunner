@@ -21,5 +21,6 @@ namespace Entity
         virtual void loop();
         void move(float x, float y);
         void display(sf::RenderWindow &window);
+        sf::Sprite getSprite();
     };
 };
