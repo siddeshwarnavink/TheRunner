@@ -19,7 +19,7 @@ SUBDIRS := $(wildcard $(SRC_DIR)/*/)
 ALL_SOURCES := $(shell find $(SRC_DIR) -name '*.cpp')
 OBJECTS := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(ALL_SOURCES))
 
-all: compile link run clean
+all: clean compile link run
 
 print-objects: $(OBJECTS)
 	@echo "OBJECTS: $(OBJECTS)"
