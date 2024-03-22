@@ -2,7 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "State/GameState.h"
 #include "Actor/MainCharacter.h"
 
 namespace Entity

@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 
-#include "State/GameState.h"
 #include "Actor/MainCharacter.h"
 #include "Entity/Floor.h"
 #include "Generator/BlockGenerator.h"
@@ -17,7 +16,6 @@ private:
     sf::RenderWindow window;
     Actor::MainCharacter player;
     Entity::Floor floor;
-    State::GameState gameState;
     Static::SkyBackground background;
     // Generator::BlockGenerator blockGenerator;
     Generator::SurikenGenerator blockGenerator;

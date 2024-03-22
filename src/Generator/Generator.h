@@ -5,7 +5,6 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
-#include "State/GameState.h"
 #include "Entity/Obstacle/BaseObstacle.h"
 #include "Actor/MainCharacter.h"
 #include "Entity/Floor.h"

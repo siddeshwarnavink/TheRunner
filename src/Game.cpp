@@ -9,7 +9,6 @@ float Game::speedBoost = 0.0f;
 
 Game::Game() : window(sf::VideoMode(800, 600), "Jumping Game"),
                floor(player),
-               gameState(window, player),
                background(window),
                blockGenerator(player, floor, window),
                frameTime(sf::seconds(0.1f / currentFPS)),
